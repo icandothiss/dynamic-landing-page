@@ -9,31 +9,31 @@ const intvl = setInterval(() => {
 
   // Time calculations
 
-  const hours = now.getHours();
+  let hours = now.getHours();
   const mins = now.getMinutes();
   const seconds = now.getSeconds();
-  let pmAm;
-  if (hours > 12 && hours < 18) {
+  var pmAm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12 || 12;
+
+  if (hours >= 12 && hours < 18) {
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
-    pmAm = "PM";
     greeting.innerHTML = "Good Afternoon";
-  } else if (hours > 18 && hours < 24) {
+  } else if (hours >= 18 && hours < 24) {
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/924T2Wv/night.jpg')";
-    pmAm = "PM";
     greeting.innerHTML = "Good Evening";
-  } else {
+  } else if (hours > 0 && hours < 12) {
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
-    pmAm = "AM";
     greeting.innerHTML = "Good Morning";
   }
 
   countdown.innerHTML = `
-  <div>${hours}<span>:</span></div>
-  <div>${mins}<span>:</span></div>
-  <div>${seconds}<span></span></div>
+  <div>${addZero(hours)}<span>:</span></div>
+  <div>${addZero(mins)}<span>:</span></div>
+  <div>${addZero(seconds)}<span></span></div>
   <div>${pmAm}<span></span></div>
   `;
 });
@@ -85,3 +85,7 @@ window.addEventListener("load", () => {
     myFocus.innerHTML = JSON.parse(localStorage.getItem("focuses"));
   }
 });
+
+function addZero(n) {
+  return (parseInt(n, 10) < 10 ? "0" : "") + n;
+}
