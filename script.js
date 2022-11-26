@@ -36,8 +36,13 @@ const intvl = setInterval(() => {
   `;
 });
 
-console.log(myName.textContent);
-console.log(myFocus.textContent);
+myName.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    myName.textContent = myName.textContent.replace(/(\r\n|\n|\r)/gm, "");
+
+    myName.blur();
+  }
+});
 
 myName.addEventListener("click", () => {
   if (myName.innerHTML === "[Enter Name]") {
@@ -51,24 +56,19 @@ myFocus.addEventListener("click", () => {
   }
 });
 
-myName.addEventListener(
-  "input",
-  function () {
-    localStorage.setItem("names", JSON.stringify(myName.textContent));
-    if (myName.innerHTML === "") {
-      myName.innerHTML = "[Enter Name]";
-    }
-  },
-  false
-);
+myName.addEventListener("input", function (e) {
+  localStorage.setItem("names", JSON.stringify(myName.textContent));
+  if (myName.innerHTML === "") {
+    myName.innerHTML = "[Enter Name]";
+  }
+});
 
-myFocus.addEventListener(
-  "input",
-  function () {
-    localStorage.setItem("focuses", JSON.stringify(myFocus.textContent));
-  },
-  false
-);
+myFocus.addEventListener("input", function (e) {
+  localStorage.setItem("focuses", JSON.stringify(myFocus.textContent));
+  if (myFocus.innerHTML === "") {
+    myFocus.innerHTML = "[Enter Focus]";
+  }
+});
 
 window.addEventListener("load", () => {
   if (JSON.parse(localStorage.getItem("names")) === "") {
