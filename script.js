@@ -14,8 +14,6 @@ const intvl = setInterval(() => {
   const seconds = now.getSeconds();
   var pmAm = hours >= 12 ? "PM" : "AM";
 
-  hours = hours % 12 || 12;
-
   if (hours >= 12 && hours < 18) {
     document.body.style.backgroundImage =
       "url('https://i.ibb.co/3mThcXc/afternoon.jpg')";
@@ -29,7 +27,7 @@ const intvl = setInterval(() => {
       "url('https://i.ibb.co/7vDLJFb/morning.jpg')";
     greeting.innerHTML = "Good Morning";
   }
-
+  hours = hours % 12 || 12;
   countdown.innerHTML = `
   <div>${addZero(hours)}<span>:</span></div>
   <div>${addZero(mins)}<span>:</span></div>
